@@ -17,7 +17,7 @@ router.get('/:id', (reg, res) => {
   // JOIN movies_genre ON movies_genres.movie_id = movies.id
   // JOIN genres ON movies_genres.genres.id = genres.id
   const query = `
-    SELECT "tittle", "poster", "description", "name
+    SELECT "tittle", "poster", "description", "name"
     FROM "movies"
     JOIN movies_genre
       ON movies.id = movies_genres.movie_id
