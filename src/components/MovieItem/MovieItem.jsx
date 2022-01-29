@@ -7,13 +7,14 @@ function MovieItem ({movie}) {
     const history = useHistory();
 
     const movieSelected = (movie) => {
+        console.log('movie clicked on movieItem', movie);
         // get the object from reducer
         dispatch({
             type: 'SET_SELECTED_MOVIE',
             payload: movie
         })
         // click on the movie and it take you to the details page
-        history.push('/details');
+        // history.push('/details');
     }
     // need to style this more 👇
     return (

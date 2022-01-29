@@ -14,6 +14,8 @@ function Details () {
     const dispatch = useDispatch;
     // grabbing the state selectedMovie reduver from the store
     const selectedMovie = useSelector(store => store.selectedMovie);
+    // this is undefined so state is not set
+
     console.log('movie got selected', selectedMovie);
     // same thing grabbing the state
     const movieDetails = useSelector(store => store.movieDetails);
@@ -23,7 +25,7 @@ function Details () {
 
         dispatch({
             type: 'FETCH_DETAILS',
-            // payload:
+            payload: selectedMovie
         })
     }, []);
 
