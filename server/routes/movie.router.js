@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+
+// Need an endpoint for GET ('/:id') 
+// calling from fetchDetails
+router.get('/:id', (reg, res) => {
+  console.log('details id is:', req.params.id);
+  
+  let detailsId = req.params.id
+
+}); // end of GET ('/:id')
+
 router.get('/', (req, res) => {
 
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;

@@ -17,7 +17,7 @@ function Details () {
 
         dispatch({
             type: 'FETCH DETAILS',
-            payload:
+            // payload:
         })
     }, []);
 

@@ -14,21 +14,25 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
-    yield takeEvery('FETCH_DEATAILS', fetchDetails);
+    yield takeEvery('FETCH_DETAILS', fetchDetails);
 }
 
 function* fetchDetails (action) {
     console.log('action is ', action);
+    // I can leave it as action.payload but 
+    // changing it to id easier to read for me
     const id = action.payload
     try{
         const response = yield axios.get(`api/movie/${id}`);
         console.log('response.data is', response.data );
         
-        yield put=({
+        yield put({
             type: 'SET_DETAILS',
             payload: response.data
-        }) catch {
-            console.log('get all error');
+        }) 
+    }
+    catch (err) {
+        console.log('get all details error', err);
     }
 }; // end of fetchDetails
 
@@ -37,7 +41,11 @@ function* fetchAllMovies() {
     try {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
-        yield put({ type: 'SET_MOVIES', payload: movies.data });
+
+        yield put({ 
+            type: 'SET_MOVIES', 
+            payload: movies.data 
+        });
 
     } catch {
         console.log('get all error');
@@ -49,6 +57,8 @@ function* fetchAllMovies() {
 const sagaMiddleware = createSagaMiddleware();
 
 // used to hold Details
+// state would be an empty object
+// because what it set will be a single object movie details
 const movieDetails = (state = {}, action) => {
     switch (action.type) {
         case 'SET_DETAILS':
@@ -94,8 +104,7 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={storeInstance}>
-        <App />
+            <App />
         </Provider>
-    </React.StrictMode>,
-    document.getElementById('root')
-);
+    </React.StrictMode>
+    ,document.getElementById('root'));
