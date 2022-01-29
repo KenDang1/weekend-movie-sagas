@@ -2,6 +2,44 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+
+// Need an endpoint for GET ('/:id') 
+// calling from fetchDetails
+router.get('/:id', (reg, res) => {
+  console.log('details id is:', req.params.id);
+  
+  let detailsId = req.params.id
+
+  // Selecting title, poster, description, name
+  // FROM movies table
+  // movies_genres is a junction table which act as a middle man
+  // for both movies and genres table
+  // JOIN movies_genre ON movies_genres.movie_id = movies.id
+  // JOIN genres ON movies_genres.genres.id = genres.id
+  const query = `
+    SELECT "tittle", "poster", "description", "name"
+    FROM "movies"
+    JOIN movies_genre
+      ON movies.id = movies_genres.movie_id
+    JOIN genres
+      ON movies_genres.genres.id = genres.id
+    Where movies.id = $1
+  `
+  const queryParams = [
+    reg.params.id
+  ]
+  
+  pool.query(query, queryParams)
+    .then(result => {
+      console.log('Details Result is:', result);
+      // sending back the info it found on that ID it got
+      res.send(result.rows)
+    })
+    .catch(err => {
+      console.error('ERROR on GET details', err)
+    })
+}); // end of GET ('/:id')
+
 router.get('/', (req, res) => {
 
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
