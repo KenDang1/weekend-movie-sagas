@@ -14,7 +14,7 @@ function MovieItem ({movie}) {
             payload: movie
         })
         // click on the movie and it take you to the details page
-        // history.push('/details');
+        history.push('/details');
     }
     // need to style this more 👇
     return (

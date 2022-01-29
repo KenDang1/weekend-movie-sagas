@@ -19,11 +19,11 @@ router.get('/:id', (reg, res) => {
   const query = `
     SELECT "tittle", "poster", "description", "name"
     FROM "movies"
-    JOIN movies_genre
-      ON movies.id = movies_genres.movie_id
-    JOIN genres
-      ON movies_genres.genres.id = genres.id
-    Where movies.id = $1
+    JOIN "movies_genres"
+      ON "movies.id" = "movies_genres.movie_id"
+    JOIN "genres"
+      ON "movies_genres.genre.id" = "genres.id"
+    WHERE "movies.id" = $1
   `
   const queryParams = [
     reg.params.id
@@ -34,6 +34,8 @@ router.get('/:id', (reg, res) => {
       console.log('Details Result is:', result);
       // sending back the info it found on that ID it got
       res.send(result.rows)
+      console.log('result in details', result.rows);
+      
     })
     .catch(err => {
       console.error('ERROR on GET details', err)
