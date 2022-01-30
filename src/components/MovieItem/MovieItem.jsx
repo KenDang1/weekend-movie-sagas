@@ -9,6 +9,7 @@ import { CardActionArea } from '@mui/material';
 
 
 
+
 function MovieItem ({movie}) {
     const dispatch = useDispatch();
     const history = useHistory();

@@ -50,9 +50,9 @@ function Details () {
                 <h3>Genres</h3>
                 <List>
                     { movieDetails.genres?
-                        genres.map((genre, i) => (
-                        <ListItemText key={i}> {genre} </ListItemText>
-                    )): (null)}
+                        movieDetails.genres.map((genre, i) =>
+                        <ListItem key={i}>{genre}</ListItem>
+                        ): (null)}
                 </List>
             </>
         ) : (null)}
