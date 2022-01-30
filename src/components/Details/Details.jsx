@@ -3,7 +3,7 @@
 // Use Sagas and Redux to handle these requests and data.
 // TODO: The details page should have a `Back to List` button, which should bring the user to the Home/List Page
 // Hint : You can make a GET request for a specific movie. Remember `req.params` and `:id`?
-import { useHistory }  from 'react-router-dom';
+import { useHistory, useParams }  from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 function Details () {
     const history = useHistory();
     const dispatch = useDispatch();
+
     // grabbing the state selectedMovie reducer from the store
     const movieSelected = useSelector(store => store.movieSelected);
     console.log('movie selected in details:', movieSelected);
@@ -20,11 +21,15 @@ function Details () {
     const movieDetails = useSelector(store => store.movieDetails);
     console.log('movie detail got selected details.jsx', movieDetails);
 
+    // So by doing this, the page should not going into Error
+    // if I read the notes right
+    const { id } = useParams();
+
     useEffect(() => {
 
         dispatch({
             type: 'FETCH_DETAILS',
-            payload: movieSelected.id
+            payload: id
         })
     }, []);
 
