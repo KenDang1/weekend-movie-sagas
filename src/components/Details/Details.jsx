@@ -11,19 +11,36 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function Details () {
     const history = useHistory();
-    const dispatch = useDispatch;
+    const dispatch = useDispatch();
+    // grabbing the state selectedMovie reducer from the store
+    const movieSelected = useSelector(store => store.movieSelected);
+    console.log('movie selected in details:', movieSelected);
+
+    // same thing grabbing the state
+    const movieDetails = useSelector(store => store.movieDetails);
+    console.log('movie detail got selected details.jsx', movieDetails);
 
     useEffect(() => {
 
         dispatch({
-            type: 'FETCH DETAILS',
-            // payload:
+            type: 'FETCH_DETAILS',
+            payload: movieSelected.id
         })
     }, []);
 
+    // when clicked the button it take user back to the List Page
+    const backToHome = () => {
+        history.push('/');
+    }
+
     return (
         <>
-        
+        <h1>Movie Selected</h1>
+        <h3>{movieDetails[0].title}</h3>
+        <img src={movieDetails[0].poster}/>
+        <p>{movieDetails[0].description}</p>
+        <p>{movieDetails[0].genres}</p>
+        <button onClick={() => backToHome}>Go To List</button>
         </>
     )
 }; // end of Details

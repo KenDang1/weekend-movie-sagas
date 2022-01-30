@@ -18,14 +18,17 @@ function* rootSaga() {
 }
 
 function* fetchDetails (action) {
-    console.log('action is ', action);
     // I can leave it as action.payload but 
     // changing it to id easier to read for me
     const id = action.payload
+    console.log('id is in index fetchDetails', id);
+    
     try{
-        const response = yield axios.get(`api/movie/${id}`);
+        const response = yield axios.get(`/api/movie/${id}`)
         console.log('response.data is', response.data );
         
+        // call the movieDetails reducer
+        // set the details into the state
         yield put({
             type: 'SET_DETAILS',
             payload: response.data
@@ -56,13 +59,23 @@ function* fetchAllMovies() {
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
+
+// same as details so when movie is clicked on 
+// set a state for that movie got selected
+const movieSelected = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_SELECTED_MOVIE':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 // used to hold Details
-// state would be an empty object
-// because what it set will be a single object movie details
 const movieDetails = (state = {}, action) => {
     switch (action.type) {
         case 'SET_DETAILS':
-            return action.payload
+            return action.payload;
         default:
             return state;
     }
@@ -93,6 +106,8 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        movieDetails,
+        movieSelected,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

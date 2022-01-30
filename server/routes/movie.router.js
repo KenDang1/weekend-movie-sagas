@@ -5,28 +5,35 @@ const pool = require('../modules/pool')
 
 // Need an endpoint for GET ('/:id') 
 // calling from fetchDetails
-router.get('/:id', (reg, res) => {
+router.get('/:id', (req, res) => {
   console.log('details id is:', req.params.id);
-  
-  let detailsId = req.params.id
 
-  // Selecting title, poster, description, name
+  // Selecting "movies"."tittle", "movies"."poster", "movies"."description",
+  // Return a single row json data
+  // JSON_AGG("genres"."name") AS "genres"
   // FROM movies table
   // movies_genres is a junction table which act as a middle man
   // for both movies and genres table
   // JOIN movies_genre ON movies_genres.movie_id = movies.id
   // JOIN genres ON movies_genres.genres.id = genres.id
   const query = `
-    SELECT "tittle", "poster", "description", "name"
+    SELECT 
+    "movies"."id",
+    "movies"."title", 
+    "movies"."poster", 
+    "movies"."description",
+    JSON_AGG("genres"."name") AS "genres"
     FROM "movies"
-    JOIN movies_genre
-      ON movies.id = movies_genres.movie_id
-    JOIN genres
-      ON movies_genres.genres.id = genres.id
-    Where movies.id = $1
-  `
+    JOIN "movies_genres"
+      ON "movies_genres"."movie_id" = "movies"."id"
+    JOIN "genres"
+      ON "genres"."id" = "movies_genres"."genre_id"
+    WHERE "movies"."id" = $1
+    GROUP BY "movies"."id", "movies"."title", "movies"."poster", "movies"."description";
+    `;
+
   const queryParams = [
-    reg.params.id
+    req.params.id
   ]
   
   pool.query(query, queryParams)
@@ -34,6 +41,8 @@ router.get('/:id', (reg, res) => {
       console.log('Details Result is:', result);
       // sending back the info it found on that ID it got
       res.send(result.rows)
+      console.log('result in details', result.rows);
+      
     })
     .catch(err => {
       console.error('ERROR on GET details', err)
