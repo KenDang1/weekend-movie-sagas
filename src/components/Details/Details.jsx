@@ -11,21 +11,20 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function Details () {
     const history = useHistory();
-    const dispatch = useDispatch;
+    const dispatch = useDispatch();
     // grabbing the state selectedMovie reducer from the store
     const movieSelected = useSelector(store => store.movieSelected);
-    // this is undefined so state is not set
+    console.log('movie selected in details:', movieSelected);
 
-    console.log('movie got selected', movieSelected);
     // same thing grabbing the state
     const movieDetails = useSelector(store => store.movieDetails);
-    console.log('movie detail got selected', movieDetails);
+    console.log('movie detail got selected details.jsx', movieDetails);
 
     useEffect(() => {
 
         dispatch({
             type: 'FETCH_DETAILS',
-            payload: movieSelected.id
+            payload: movieSelected
         })
     }, []);
 

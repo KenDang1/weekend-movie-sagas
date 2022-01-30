@@ -5,10 +5,8 @@ const pool = require('../modules/pool')
 
 // Need an endpoint for GET ('/:id') 
 // calling from fetchDetails
-router.get('/:id', (reg, res) => {
+router.get('/:id', (req, res) => {
   console.log('details id is:', req.params.id);
-  
-  let detailsId = req.params.id
 
   // Selecting title, poster, description, name
   // FROM movies table
@@ -17,7 +15,11 @@ router.get('/:id', (reg, res) => {
   // JOIN movies_genre ON movies_genres.movie_id = movies.id
   // JOIN genres ON movies_genres.genres.id = genres.id
   const query = `
-    SELECT "tittle", "poster", "description", "name"
+    SELECT 
+    "movies"."tittle", 
+    "movies"."poster", 
+    "movies"."description",
+    JSON_AGG("genres"."name") AS "genres"
     FROM "movies"
     JOIN "movies_genres"
       ON "movies.id" = "movies_genres.movie_id"
@@ -26,7 +28,7 @@ router.get('/:id', (reg, res) => {
     WHERE "movies.id" = $1
   `
   const queryParams = [
-    reg.params.id
+    req.params.id
   ]
   
   pool.query(query, queryParams)

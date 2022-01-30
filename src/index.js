@@ -18,12 +18,13 @@ function* rootSaga() {
 }
 
 function* fetchDetails (action) {
-    console.log('action is ', action);
     // I can leave it as action.payload but 
     // changing it to id easier to read for me
     const id = action.payload
+    console.log('id is in index fetchDetails', id);
+    
     try{
-        const response = yield axios.get(`api/movie/${id}`);
+        const response = yield axios.get(`/api/movie/${id}`)
         console.log('response.data is', response.data );
         
         // call the movieDetails reducer
@@ -108,7 +109,7 @@ const storeInstance = createStore(
         movies,
         genres,
         movieDetails,
-        movieSelected 
+        movieSelected,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
