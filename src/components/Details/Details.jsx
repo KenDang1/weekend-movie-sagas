@@ -12,6 +12,10 @@ import { useDispatch, useSelector } from 'react-redux';
 function Details () {
     const history = useHistory();
     const dispatch = useDispatch();
+    // So by doing this, the page should not going into Error
+    // if I read the notes right
+    const { id } = useParams();
+    console.log('params ID is:', id);
 
     // grabbing the state selectedMovie reducer from the store
     const movieSelected = useSelector(store => store.movieSelected);
@@ -21,17 +25,13 @@ function Details () {
     const movieDetails = useSelector(store => store.movieDetails);
     console.log('movie detail got selected details.jsx', movieDetails);
 
-    // So by doing this, the page should not going into Error
-    // if I read the notes right
-    const { id } = useParams();
-
     useEffect(() => {
-
         dispatch({
             type: 'FETCH_DETAILS',
             payload: id
         })
     }, []);
+
 
     // when clicked the button it take user back to the List Page
     const backToHome = () => {
@@ -45,7 +45,6 @@ function Details () {
         <img src={movieDetails[0].poster}/>
         <p>{movieDetails[0].description}</p>
         <p>{movieDetails[0].genres}</p>
-        <button onClick={() => backToHome}>Go To List</button>
         </>
     )
 }; // end of Details
