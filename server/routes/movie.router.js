@@ -8,7 +8,9 @@ const pool = require('../modules/pool')
 router.get('/:id', (req, res) => {
   console.log('details id is:', req.params.id);
 
-  // Selecting title, poster, description, name
+  // Selecting "movies"."tittle", "movies"."poster", "movies"."description",
+  // Return a single row json data
+  // JSON_AGG("genres"."name") AS "genres"
   // FROM movies table
   // movies_genres is a junction table which act as a middle man
   // for both movies and genres table
@@ -25,7 +27,7 @@ router.get('/:id', (req, res) => {
       ON "movies.id" = "movies_genres.movie_id"
     JOIN "genres"
       ON "movies_genres.genre.id" = "genres.id"
-    WHERE "movies.id" = $1
+    WHERE "movies"."id" = $1
   `
   const queryParams = [
     req.params.id

@@ -24,7 +24,7 @@ function Details () {
 
         dispatch({
             type: 'FETCH_DETAILS',
-            payload: movieSelected
+            payload: movieSelected.id
         })
     }, []);
 
