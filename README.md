@@ -8,4 +8,8 @@ I had a hard time to figure out where to start like which part should I start fi
 
 Next is the genres all crumble up which I'm still don't know how to render it nicely out.  Also when I refresh the detail page it went into ERROR mode, and this is the params part Edan talked about which I hope to get it tomorrow. 1 AM on Saturday, too tired.
 
+Got the Detail page to load and refresh, also not going lose the detail state.
+
+Still can not map out the genres 
+
 Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
