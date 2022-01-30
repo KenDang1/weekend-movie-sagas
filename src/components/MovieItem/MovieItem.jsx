@@ -1,5 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom'
+import './MovieItem.css'
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+
+
 
 
 function MovieItem ({movie}) {
@@ -21,10 +29,23 @@ function MovieItem ({movie}) {
     }
     // need to style this more 👇
     return (
-        <div key={movie.id} onClick={() => movieSelected(movie)}>
-            <p>{movie.title}</p>
-            <img src={movie.poster}/> 
-        </div>
+        <Card 
+            className="cardClass"
+            sx={{ maxWidth: 350 }}
+            key={movie.id}
+            onClick={() => movieSelected(movie)}>
+                <CardActionArea>
+                    <CardMedia
+                        component="img"
+                        height="400"
+                        image={movie.poster}
+                    />
+                    <CardContent>
+                        <Typography
+                            variant="caption">{movie.title}</Typography>
+                    </CardContent>
+                </CardActionArea>
+        </Card>
     )
 }; // end of MovieItem
 

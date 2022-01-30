@@ -6,6 +6,7 @@
 import { useHistory, useParams }  from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Container, List, ListItem, ListItemText } from '@material-ui/core'
 
 
 
@@ -18,8 +19,8 @@ function Details () {
     console.log('params ID is:', id);
 
     // grabbing the state selectedMovie reducer from the store
-    const movieSelected = useSelector(store => store.movieSelected);
-    console.log('movie selected in details:', movieSelected);
+    // const movieSelected = useSelector(store => store.movieSelected);
+    // console.log('movie selected in details:', movieSelected);
 
     // same thing grabbing the state
     const movieDetails = useSelector(store => store.movieDetails);
@@ -39,13 +40,23 @@ function Details () {
     }
 
     return (
-        <>
+        <Container className='detailContainer'>
         <h1>Movie Selected</h1>
-        <h3>{movieDetails[0].title}</h3>
-        <img src={movieDetails[0].poster}/>
-        <p>{movieDetails[0].description}</p>
-        <p>{movieDetails[0].genres}</p>
-        </>
+        { movieDetails[0] ? (
+            <>
+                <h3>{movieDetails[0].title}</h3>
+                <img src={movieDetails[0].poster}/>
+                <p>{movieDetails[0].description}</p>
+                <h3>Genres</h3>
+                <List>
+                    { movieDetails.genres?
+                        movieDetails.genres.map((genre, i) =>
+                        <ListItem key={i}>{genre}</ListItem>
+                        ): (null)}
+                </List>
+            </>
+        ) : (null)}
+        </Container>
     )
 }; // end of Details
 

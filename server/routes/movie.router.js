@@ -22,7 +22,7 @@ router.get('/:id', (req, res) => {
     "movies"."title", 
     "movies"."poster", 
     "movies"."description",
-    JSON_AGG("genres"."name") AS "genres"
+    ARRAY_AGG("genres"."name") AS "genres"
     FROM "movies"
     JOIN "movies_genres"
       ON "movies_genres"."movie_id" = "movies"."id"
@@ -42,7 +42,6 @@ router.get('/:id', (req, res) => {
       // sending back the info it found on that ID it got
       res.send(result.rows)
       console.log('result in details', result.rows);
-      
     })
     .catch(err => {
       console.error('ERROR on GET details', err)
