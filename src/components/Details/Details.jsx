@@ -28,6 +28,11 @@ function Details () {
         })
     }, []);
 
+    // when clicked the button it take user back to the List Page
+    const backToHome = () => {
+        history.push('/');
+    }
+
     return (
         <>
         <h1>Movie Selected</h1>
@@ -35,6 +40,7 @@ function Details () {
         <img src={movieDetails[0].poster}/>
         <p>{movieDetails[0].description}</p>
         <p>{movieDetails[0].genres}</p>
+        <button onClick={() => backToHome}>Go To List</button>
         </>
     )
 }; // end of Details

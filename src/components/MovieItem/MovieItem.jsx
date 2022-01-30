@@ -19,7 +19,7 @@ function MovieItem ({movie}) {
     // need to style this more 👇
     return (
         <div key={movie.id} onClick={() => movieSelected(movie)}>
-            {movie.title}
+            <p>{movie.title}</p>
             <img src={movie.poster}/> 
         </div>
     )
