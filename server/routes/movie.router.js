@@ -18,17 +18,20 @@ router.get('/:id', (req, res) => {
   // JOIN genres ON movies_genres.genres.id = genres.id
   const query = `
     SELECT 
-    "movies"."tittle", 
+    "movies"."id",
+    "movies"."title", 
     "movies"."poster", 
     "movies"."description",
     JSON_AGG("genres"."name") AS "genres"
     FROM "movies"
     JOIN "movies_genres"
-      ON "movies.id" = "movies_genres.movie_id"
+      ON "movies_genres"."movie_id" = "movies"."id"
     JOIN "genres"
-      ON "movies_genres.genre.id" = "genres.id"
+      ON "genres"."id" = "movies_genres"."genre_id"
     WHERE "movies"."id" = $1
-  `
+    GROUP BY "movies"."id", "movies"."title", "movies"."poster", "movies"."description";
+    `;
+
   const queryParams = [
     req.params.id
   ]
