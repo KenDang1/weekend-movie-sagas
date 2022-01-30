@@ -30,7 +30,11 @@ function Details () {
 
     return (
         <>
-        
+        <h1>Movie Selected</h1>
+        <h3>{movieDetails[0].title}</h3>
+        <img src={movieDetails[0].poster}/>
+        <p>{movieDetails[0].description}</p>
+        <p>{movieDetails[0].genres}</p>
         </>
     )
 }; // end of Details

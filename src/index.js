@@ -74,7 +74,7 @@ const movieSelected = (state = {}, action) => {
 // used to hold Details
 // state would be an empty object
 // because what it set will be a single object movie details
-const movieDetails = (state = {}, action) => {
+const movieDetails = (state = [], action) => {
     switch (action.type) {
         case 'SET_DETAILS':
             return action.payload;
