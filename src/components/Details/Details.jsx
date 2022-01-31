@@ -49,10 +49,9 @@ function Details () {
                 <p>{movieDetails[0].description}</p>
                 <h3>Genres</h3>
                 <List>
-                    { movieDetails.genres?
-                        movieDetails.genres.map((genre, i) =>
+                    { movieDetails[0].genres?.map((genre, i) =>
                         <ListItem key={i}>{genre}</ListItem>
-                        ): (null)}
+                        )}
                 </List>
             </>
         ) : (null)}
