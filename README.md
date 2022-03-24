@@ -3,8 +3,9 @@ Weekend Movies Saga
 
 
 Screenshots
+<br />
 Main Page:
-<img src="/public/images/mainpage.png" height="40px" width="40px" />
+<img src="/public/images/mainpage.png" height="400px" width="400px" />
 
 
 
